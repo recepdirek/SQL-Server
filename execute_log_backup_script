@@ -1,0 +1,4 @@
+EXEC sp_BackupLog 
+               @backupLocation=N'C:\backup\', 
+               @databaseName=N'DatabaseName', 
+               @backupType='F'
