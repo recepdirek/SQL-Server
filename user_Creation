@@ -1,0 +1,93 @@
+Windows authenticated user creation. It should have remote desktop access ( you can assign it to Administrators group or Remote Desktop Users according to requirement)
+
+
+
+Create an admin user on SQL Server:
+
+Create a window user
+
+
+
+
+
+Sample: 
+
+USE [master]
+GO
+CREATE LOGIN [Server\recep] FROM WINDOWS;
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [Server\recep]
+GO
+
+
+
+with these configuration when user access to the server, it will see and use all databases.
+
+
+
+
+
+
+
+Create a Read only user on SQL Server: 
+
+
+
+Create a windows user:
+
+
+
+
+
+USE [master]
+GO
+CREATE LOGIN [Server\read_only_db] FROM WINDOWS;
+
+
+
+
+
+
+
+
+
+
+
+you need to give read only access to the user on database level
+
+
+
+USE DBname
+GO
+ 
+CREATE USER read_only_db FOR LOGIN [Server\read_only_db];
+
+CREATE ROLE read_only;
+grant select on [dbo].[table_name] to read_only;
+
+ ALTER ROLE read_only ADD MEMBER read_only_db;
+
+
+
+
+
+
+
+
+
+
+
+SQL SERVER AUTHENTICATED USER:
+
+use master 
+
+CREATE LOGIN  new_user WITH PASSWORD='dfasfsfdsdf'
+GO
+
+
+
+under exact database: 
+
+user db_name
+
+CREATE USER new_user FOR LOGIN new_user 
+GO
